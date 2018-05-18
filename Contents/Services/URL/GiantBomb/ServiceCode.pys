@@ -1,0 +1,67 @@
+#!/bin/false
+# vim: set ft=python:
+# not a python script
+from urlparse import urlsplit, urlunsplit
+
+
+def NormalizeURL(url):
+    '''
+    Extracts the video guid and turns it into an API URL.
+    '''
+    u = list(urlsplit(url))
+    guid = [x for x in u.path.split('/') if x != ''][-1]
+    u[2] = '/api/video/{}/' % guid
+    return urlunsplit(u)
+
+
+def MetadataObjectForURL(url):
+    '''
+    Extracts the metadata from an API URL.
+    '''
+    values = {'format': 'json'}
+    if 'api_token' in Dict:
+        values['api_token'] = Dict['api_token']
+    obj = JSON.ObjectFromURL(url, values=values, cacheTime=3600, timeout=5)
+    # Check error
+    e = obj.results[0]
+    avail = Datetime.ParseDate(e['publish_date']).date()
+    thumb = Resource.ContentsOfURLWithFallback(url=e['image']['medium_url'])
+    return EpisodeObject(
+            show=e['video_show']['title'],
+            title=e['name'],
+            summary=e['deck'],
+            duration=e['length_seconds'] * 1000,
+            originally_available_at=avail,
+            thumb=thumb,
+            )
+
+
+def MediaObjectsForURL(url):
+    '''
+    Using an API url, return the 3 qualities it exposes.
+    '''
+    values = {'format': 'json'}
+    if 'api_token' in Dict:
+        values['api_token'] = Dict['api_token']
+    obj = JSON.ObjectFromURL(url, values=values, cacheTime=3600, timeout=5)
+    # Check error
+    v = obj.results[0]['hd_url']
+    args = {
+            'video_codec': VideoCodec.H264,
+            'audio_codec': AudioCodec.AAC,
+            'audio_channels': 2,
+            'container': Container.MP4,
+            'protocols': [Protocol.HTTPMP4Video],
+            }
+
+    def mkargs(rate):
+        ret = args
+        ret['bitrate'] = rate
+        if rate == '8000':
+            ret['video_resolution'] = 1080
+        else:
+            ret['video_resolution'] = 720
+        ret['parts'] = [PartObject(key=v.replace('4000.mp4', rate+'.mp4'))]
+        return ret
+
+    return [MediaObject(**(mkargs(x))) for x in ('8000', '4000', '3200')]

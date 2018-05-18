@@ -1,0 +1,8 @@
+[
+    {
+        "id": "regCode",
+        "label": "Registration Code (go to giantbomb.com/app/plex)",
+        "type: "text",
+        "default": ""
+    }
+]
