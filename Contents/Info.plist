@@ -5,7 +5,7 @@
 	<!-- IMPORTANT NOTE. IF THERE ARE MULTIPLE VALUES FOR A KEY, THEN EACH VALUE SHOULD BE SEPARATED BY A COMMA IN ONE STRING  -->    
 	<!-- EXCEPT IF THE KEY HAS <array></array> CODE WITHIN IT.  THEN EACH VALUE FOR THAT KEY MUST BE ENTERED AS A SEPARATE STRING WITHIN THAT ARRAY -->    
 	<key>CFBundleIdentifier</key>
-		<string>com.plexapp.plugins.giantbomb</string>
+		<string>com.plexapp.plugins.giantbombunofficial</string>
 	<key>PlexFrameworkVersion</key>
 		<!-- Version should always be set to 2 -->        
 		<string>2</string>
@@ -17,17 +17,6 @@
 		<!-- List any client platforms supported in the plugin. -->    
 		<string>*</string>
 
-	<!-- THE REST OF THE KEYS BELOW ARE OPTIONAL -->
-	<!-- Also, you should delete any unused or empty keys in your plist file -->        
-	<key>PlexClientPlatformExclusions</key>
-		<!-- List any client platforms not supported in the plugin. -->    
-		<string></string>
-	<key>PlexPluginRegions</key>
-		<array>
-			<!-- possible string values are the proper ISO two letter code for the country -->
-			<!-- A full list of values are available at http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 -->
-			<string></string>
-		</array>
 	<!-- PLEX SERVER OPTIONAL KEYS -->
 		<!-- You are less likely to need or use the PlexServerPlatforms, since all servers should be supported by a channel -->    
 		<!-- But for example, Webkit channels are only supported by MacOSX-i386 -->    
